@@ -9,23 +9,11 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.get("/", (req: Request, res: Response) => {
-  console.log(req.query, req.cookies.State);
-
-  if (
-    req.query.state &&
-    req.cookies.State &&
-    req.query.state === req.cookies.State
-  )
-    res.sendStatus(200);
-  if (
-    !req.query.state ||
-    !req.cookies.State ||
-    req.query.state !== req.cookies.State
-  )
-    res.sendStatus(403);
+  new Authentication().getToken(req, res);
 });
-app.get("/login", (_req: Request, res: Response) => {
-  new Authentication().redirectUser(res);
+
+app.get("/login", (req: Request, res: Response) => {
+  new Authentication().redirectUser(req, res);
 });
 
 app.listen(3000, "localhost", () => {
