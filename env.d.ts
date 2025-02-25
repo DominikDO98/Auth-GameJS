@@ -5,7 +5,7 @@ declare global {
       githubClientID: string;
       githubClientSecret: string;
       authorizeURL: string;
-      tokenuRL: string;
+      tokenURL: string;
       apiURLBase: string;
       baseURL: string;
 
