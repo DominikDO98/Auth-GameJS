@@ -8,6 +8,7 @@ declare global {
       tokenURL: string;
       apiURLBase: string;
       baseURL: string;
+      frontendURL: string;
 
       MONGODB_DB: string;
       MONGODB_URI: string;
