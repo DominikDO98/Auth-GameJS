@@ -1,5 +1,6 @@
 import "dotenv/config";
 import { Request, Response } from "express";
+import { IGrant, IError } from "types/authetication";
 import { v4 as uuid } from "uuid";
 
 export class Authentication {
@@ -32,31 +33,44 @@ export class Authentication {
       throw new Error("Wrong state parameter!");
   }
 
-  private getHeaders(req: Request) {
-    if (req.cookies.access_token)
-      return {
-        ...this._headers,
-        Authorization: `Bearer ${req.cookies.access_token}`,
-      };
+  private getHeaders() {
     return this._headers;
   }
 
   async getToken(req: Request, res: Response) {
     this.validateState(req);
-    const access = await fetch(
+    await fetch(
       `${process.env.tokenURL}?${this._tokenParams}&code=${req.query.code}`,
       {
-        headers: this.getHeaders(req),
+        headers: this.getHeaders(),
       }
-    );
-    console.log(access.body);
+    )
+      .then(async (data) => {
+        return (await data.json()) as IGrant | IError;
+      })
+      .then((data) => {
+        if ((data as IError).error || !data) {
+          console.log(data);
+          throw new Error("Authetication failed!");
+        }
+        res.cookie("Authorization", `Bearer ${(data as IGrant).access_token}`);
+      })
+      .catch((e) => {
+        throw new Error(e);
+      });
+    res.set(this.getHeaders());
+    res.set({
+      Location: process.env.frontendURL,
+    });
+    res.status(302);
+    res.send();
   }
 
-  redirectUser(req: Request, res: Response) {
+  redirectUser(_req: Request, res: Response) {
     this.generateState();
     if (!this._state) throw new Error("Oops! Something gone wrong!!!");
     res.cookie("State", this._state);
-    res.set(this.getHeaders(req));
+    res.set(this.getHeaders());
     res.set({
       Location: `${process.env.authorizeURL}?${this._authorizeParams}&state=${this._state}`,
     });
