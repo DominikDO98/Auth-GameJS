@@ -1,10 +1,12 @@
 import { HEADERS } from "constants/headers";
 import { TOKEN_URL, USER_URL } from "constants/urls";
+import { GithubUserDOMapper } from "DO/githubUser/mapper";
 import { Request, Response } from "express";
-import { IError, IGrant } from "types/authetication";
+import { IError, IGithubUserDO, IGrant } from "types/authetication";
 
 export class GithubConnection {
-  async requestUser(req: Request): Promise<Record<string, unknown>> {
+  private _mapper = new GithubUserDOMapper();
+  async requestUser(req: Request): Promise<IGithubUserDO | void> {
     return await fetch(USER_URL, {
       headers: { Authorization: req.cookies.Authorization },
     })
@@ -12,7 +14,7 @@ export class GithubConnection {
         return data.json();
       })
       .then((data) => {
-        return data as Record<string, unknown>;
+        this._mapper.mapUser(data as Record<string, unknown>);
       });
   }
 
