@@ -66,5 +66,5 @@
     "verbatimModuleSyntax": false
   },
   "exclude": ["node_modules, __tests__"],
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "env.d.ts"]
 }
