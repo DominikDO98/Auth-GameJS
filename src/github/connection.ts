@@ -6,15 +6,16 @@ import { IError, IGithubUserDO, IGrant } from "types/authetication";
 
 export class GithubConnection {
   private _mapper = new GithubUserDOMapper();
+
   async requestUser(req: Request): Promise<IGithubUserDO | void> {
-    return await fetch(USER_URL, {
+    return fetch(USER_URL, {
       headers: { Authorization: req.cookies.Authorization },
     })
       .then((data) => {
         return data.json();
       })
       .then((data) => {
-        this._mapper.mapUser(data as Record<string, unknown>);
+        return this._mapper.mapUser(data as Record<string, unknown>);
       });
   }
 

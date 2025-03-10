@@ -2,12 +2,10 @@ import { HEADERS } from "constants/headers";
 import { AUTHORIZE_URL, FRONTEND_URL } from "constants/urls";
 import { Request, Response } from "express";
 import { GithubConnection } from "github/connection";
-import { MongoRepository } from "mongo /reposiotory";
 import { v4 as uuid } from "uuid";
 
 export class Authentication {
   private _github = new GithubConnection();
-  private _mongo = new MongoRepository();
 
   private validateState(req: Request) {
     if (
@@ -18,8 +16,8 @@ export class Authentication {
       throw new Error("Wrong state parameter!");
   }
 
-  async signUser(req: Request) {
-    await this._github.requestUser(req);
+  async getUser(req: Request, res: Response) {
+    res.json(await this._github.requestUser(req));
   }
 
   async getToken(req: Request, res: Response) {
