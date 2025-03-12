@@ -1,4 +1,4 @@
-import { IGithubUser, IGithubUserDO } from "types/authetication";
+import { IGithubUserDO, IGithubUser } from "types/githubUser";
 
 export class GithubUserDO implements IGithubUserDO {
   id: number;

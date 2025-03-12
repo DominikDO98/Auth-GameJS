@@ -1,4 +1,4 @@
-import { IGithubUser, IGithubUserDO } from "types/authetication";
+import { IGithubUser, IGithubUserDO } from "types/githubUser";
 import { GithubUserDO } from "./DO";
 
 export class GithubUserDOMapper {
