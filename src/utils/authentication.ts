@@ -1,46 +1,17 @@
-import { HEADERS } from "constants/headers";
-import { AUTHORIZE_URL, FRONTEND_URL } from "constants/urls";
 import { Request, Response } from "express";
-import { GithubConnection } from "github/connection";
-import { v4 as uuid } from "uuid";
+import { GithubController } from "github/controller";
 
 export class Authentication {
-  private _github = new GithubConnection();
-
-  private validateState(req: Request) {
-    if (
-      !req.query.state ||
-      !req.cookies.State ||
-      req.query.state !== req.cookies.State
-    )
-      throw new Error("Wrong state parameter!");
-  }
-
+  private _github = new GithubController();
   async getUser(req: Request, res: Response) {
-    res.json(await this._github.requestUser(req));
+    await this._github.requestUser(req, res);
   }
 
   async getToken(req: Request, res: Response) {
-    if (!req.cookies.Authorization) {
-      this.validateState(req);
-      await this._github.requestAccess(req, res);
-    }
-    res.set(HEADERS);
-    res.set({
-      Location: FRONTEND_URL,
-    });
-    res.status(302);
-    res.send();
+    await this._github.requestAccess(req, res);
   }
 
-  redirectUser(_req: Request, res: Response) {
-    const state = uuid();
-    res.cookie("State", state);
-    res.set(HEADERS);
-    res.set({
-      Location: `${AUTHORIZE_URL}&state=${state}`,
-    });
-    res.status(302);
-    res.send();
+  redirectUser(req: Request, res: Response) {
+    this._github.redirectUser(req, res);
   }
 }

@@ -9,3 +9,9 @@ export interface IError {
   error_description: string;
   error_uri: string;
 }
+
+export interface IMessage {
+  message: string;
+  documentation_url: string;
+  status: string;
+}
