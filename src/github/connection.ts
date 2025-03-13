@@ -1,6 +1,6 @@
 import { HEADERS } from "constants/headers";
 import { TOKEN_URL, USER_URL } from "constants/urls";
-import { GithubUserDOMapper } from "DO/githubUser/mapper";
+import { GithubUserDOMapper } from "github/DO/githubUser/mapper";
 import { Request, Response } from "express";
 import { IError, IGrant, IMessage } from "types/authetication";
 import { IGithubUserDO } from "types/githubUser";
