@@ -33,6 +33,7 @@ export class GithubConnection {
         if (!data || (data as IError).error || (data as IMessage).message) {
           throw new Error("Authetication failed!");
         }
+        res.clearCookie("State");
         res.cookie("Authorization", `Bearer ${(data as IGrant).access_token}`, {
           httpOnly: true,
           secure: true,

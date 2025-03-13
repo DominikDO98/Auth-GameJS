@@ -11,14 +11,14 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors({ origin: process.env.frontendURL, credentials: true }));
 
-app.get("/", async (req: Request, res: Response) => {
+app.get("/", (req: Request, res: Response) => {
   new Authentication().getToken(req, res);
-});
-app.get("/user", (req: Request, res: Response) => {
-  new Authentication().getUser(req, res);
 });
 app.get("/login", (req: Request, res: Response) => {
   new Authentication().redirectUser(req, res);
+});
+app.get("/user", (req: Request, res: Response) => {
+  new Authentication().getUser(req, res);
 });
 
 app.listen(3000, "localhost", () => {
