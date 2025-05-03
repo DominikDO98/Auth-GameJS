@@ -10,14 +10,8 @@ export interface IError {
   error_uri: string;
 }
 
-export interface IGithubUser {
-  id: number;
-  login: string;
-  avatar_url: string;
-}
-
-export interface IGithubUserDO {
-  id: number;
-  login: string;
-  avatarUrl: string;
+export interface IMessage {
+  message: string;
+  documentation_url: string;
+  status: string;
 }

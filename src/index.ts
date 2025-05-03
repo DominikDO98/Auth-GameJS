@@ -14,9 +14,14 @@ app.use(cors({ origin: process.env.frontendURL, credentials: true }));
 app.get("/", (req: Request, res: Response) => {
   new Authentication().getToken(req, res);
 });
-
 app.get("/login", (req: Request, res: Response) => {
   new Authentication().redirectUser(req, res);
+});
+app.get("/user", (req: Request, res: Response) => {
+  new Authentication().getUser(req, res);
+});
+app.get("/logout", (req: Request, res: Response) => {
+  new Authentication().logout(req, res);
 });
 
 app.listen(3000, "localhost", () => {
