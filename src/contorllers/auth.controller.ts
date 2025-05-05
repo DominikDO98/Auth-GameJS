@@ -1,16 +1,13 @@
 import { HEADERS } from "constants/headers";
 import { AUTHORIZE_URL, FRONTEND_URL } from "constants/urls";
 import { Request, Response } from "express";
-import { IGithubUserDO } from "types/githubUser";
 import { v4 as uuid } from "uuid";
-import { GithubService } from "./service";
+import { AuthService } from "../service/auth.service";
 
-export class GithubController {
-  private _service = new GithubService();
-  async requestUser(
-    req: Request,
-    res: Response
-  ): Promise<IGithubUserDO | void> {
+export class AuthController {
+  private _service = new AuthService();
+
+  async requestUser(req: Request, res: Response): Promise<void> {
     try {
       const user = await this._service.requestUser(req);
       res.set(HEADERS);
@@ -21,10 +18,8 @@ export class GithubController {
     }
   }
 
-  async requestAccess(
-    req: Request,
-    res: Response
-  ): Promise<IGithubUserDO | void> {
+  async requestAccess(req: Request, res: Response): Promise<void> {
+    console.log(this._service);
     try {
       await this._service.requestAccess(req, res);
       res.clearCookie("State");
