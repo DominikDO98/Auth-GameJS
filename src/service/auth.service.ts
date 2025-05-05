@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { IGithubUserDTO } from "types/githubUser";
-import { GithubConnection } from "./connection";
-import { GithubUserDTOMapper } from "./githubUser/DTO/mapper";
+import { GithubConnection } from "../github/connection";
+import { GithubUserDTOMapper } from "../github/githubUser/DTO/mapper";
 
-export class GithubService {
+export class AuthService {
   private _connection = new GithubConnection();
   private validateState(req: Request) {
     if (

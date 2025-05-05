@@ -1,29 +1,24 @@
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import "dotenv/config";
-import express, { Request, Response } from "express";
-import { Authentication } from "utils/authentication";
+import express from "express";
+import { AuthRouter } from "routers/auth.router";
+class App {
+  private App = express();
+  authRouter = new AuthRouter();
 
-const app = express();
+  init() {
+    this.App.use(express.urlencoded({ extended: true }));
+    this.App.use(express.json());
+    this.App.use(cookieParser());
+    this.App.use(cors({ origin: process.env.frontendURL, credentials: true }));
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(cookieParser());
-app.use(cors({ origin: process.env.frontendURL, credentials: true }));
+    this.App.use("/", this.authRouter.router);
 
-app.get("/", (req: Request, res: Response) => {
-  new Authentication().getToken(req, res);
-});
-app.get("/login", (req: Request, res: Response) => {
-  new Authentication().redirectUser(req, res);
-});
-app.get("/user", (req: Request, res: Response) => {
-  new Authentication().getUser(req, res);
-});
-app.get("/logout", (req: Request, res: Response) => {
-  new Authentication().logout(req, res);
-});
+    this.App.listen(3000, "localhost", () => {
+      console.log("Server is running on port 3000...");
+    });
+  }
+}
 
-app.listen(3000, "localhost", () => {
-  console.log("Server is running on port 3000...");
-});
+const app = new App().init();
