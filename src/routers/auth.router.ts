@@ -1,30 +1,30 @@
-import { Request, Response } from "express";
+import { Express, Request, Response, Router } from "express";
 import { AuthController } from "contorllers/auth.controller";
 import { CustomRouter } from "./abstract";
 
 export class AuthRouter extends CustomRouter {
   private _controller = new AuthController();
 
-  constructor() {
-    super();
-    this.initRoutes();
+  constructor(app: Express) {
+    super(app);
   }
-  private initRoutes() {
+  initRoutes() {
     this.router.get("/", this.requestAccess.bind(this));
     this.router.get("/login", this.redirectUser.bind(this));
     this.router.get("/user", this.requestUser.bind(this));
     this.router.get("/logout", this.logOut.bind(this));
+    this.app.use("/", this.router);
   }
-  requestUser(req: Request, res: Response) {
+  private requestUser(req: Request, res: Response) {
     return this._controller.requestUser(req, res);
   }
-  requestAccess(req: Request, res: Response) {
+  private requestAccess(req: Request, res: Response) {
     return this._controller.requestAccess(req, res);
   }
-  redirectUser(req: Request, res: Response) {
+  private redirectUser(req: Request, res: Response) {
     return this._controller.redirectUser(req, res);
   }
-  logOut(req: Request, res: Response) {
+  private logOut(req: Request, res: Response) {
     return this._controller.logOut(req, res);
   }
 }

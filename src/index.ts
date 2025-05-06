@@ -2,23 +2,25 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import "dotenv/config";
 import express from "express";
-import { AuthRouter } from "routers/auth.router";
+import { MainRouter } from "routers";
 class App {
-  private App = express();
-  authRouter = new AuthRouter();
+  app: express.Express;
+  router: MainRouter;
+  constructor() {
+    this.app = express();
+    this.router = new MainRouter(this.app);
+  }
 
   init() {
-    this.App.use(express.urlencoded({ extended: true }));
-    this.App.use(express.json());
-    this.App.use(cookieParser());
-    this.App.use(cors({ origin: process.env.frontendURL, credentials: true }));
-
-    this.App.use("/", this.authRouter.router);
-
-    this.App.listen(3000, "localhost", () => {
+    this.app.use(express.urlencoded({ extended: true }));
+    this.app.use(express.json());
+    this.app.use(cookieParser());
+    this.app.use(cors({ origin: process.env.frontendURL, credentials: true }));
+    this.router.initRoutes();
+    this.app.listen(3000, "localhost", () => {
       console.log("Server is running on port 3000...");
     });
   }
 }
 
-const app = new App().init();
+new App().init();
