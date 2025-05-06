@@ -1,6 +1,7 @@
 import cookieParser from "cookie-parser";
 import express, { Express } from "express";
 import cors from "cors";
+
 export class Middleware {
   private _app;
   constructor(app: Express) {
