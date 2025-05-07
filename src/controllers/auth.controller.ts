@@ -1,8 +1,8 @@
-import { HEADERS } from "constants/headers";
-import { AUTHORIZE_URL, FRONTEND_URL } from "constants/urls";
-import { Request, Response } from "express";
+import { HEADERS } from "../constants/headers.js";
+import { AUTHORIZE_URL, FRONTEND_URL } from "../constants/urls.js";
+import type { Request, Response } from "express";
 import { v4 as uuid } from "uuid";
-import { AuthService } from "../services/auth.service";
+import { AuthService } from "../services/auth.service.js";
 
 export class AuthController {
   private _service = new AuthService();

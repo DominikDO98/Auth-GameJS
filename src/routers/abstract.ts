@@ -1,4 +1,4 @@
-import { Express, Router } from "express";
+import { Router, type Express } from "express";
 
 export class CustomRouter {
   private _router;

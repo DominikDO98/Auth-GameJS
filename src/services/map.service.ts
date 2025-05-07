@@ -1,25 +1,30 @@
-import { ConsumeMessage } from "amqplib";
-import { RpcConnection } from "../../lib/src/broker/connection";
-import { IDifficultySettings, IMapDTO } from "types/map";
-import { EQueues } from "enums/queue.enum";
+import type { ConsumeMessage } from "amqplib";
+import { EQueues } from "../enums/queue.enum.js";
+import type { IDifficultySettings, IMapDTO } from "../types/map.js";
+import type { RpcConnectionManager } from "../../lib/broker/connectionManager.js";
 
 export class MapService {
-  private _broker: RpcConnection;
+  private _broker: RpcConnectionManager;
 
-  constructor(broker: RpcConnection) {
+  constructor(broker: RpcConnectionManager) {
     this._broker = broker;
   }
 
   private getStringContent(msg: ConsumeMessage | null): string | undefined {
-    return msg?.content.toString();
+    const data = msg?.content.toString();
+    return data;
   }
   async getMap(diff: IDifficultySettings): Promise<IMapDTO> {
-    const map = await this._broker.sendCall(
-      EQueues.Map,
-      JSON.stringify(diff),
-      this.getStringContent
-    );
-    if (!map) throw new Error("No msg received");
+    let map;
+    await this._broker.init().then(async () => {
+      map = await this._broker.sendCall(
+        EQueues.Map,
+        JSON.stringify(diff),
+        this.getStringContent
+      );
+    });
+    await this._broker.disconnect();
+    if (!map) throw new Error("No map received");
     return JSON.parse(map as string);
   }
 }

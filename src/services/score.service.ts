@@ -1,11 +1,11 @@
-import { EQueues } from "enums/queue.enum";
-import { RpcConnection } from "../../lib/src/broker/connection";
-import { ConsumeMessage } from "amqplib";
+import { EQueues } from "../enums/queue.enum.js";
+import type { ConsumeMessage } from "amqplib";
+import type { RpcConnectionManager } from "../../lib/broker/connectionManager.js";
 
 export class ScoreService {
-  private _broker: RpcConnection;
+  private _broker: RpcConnectionManager;
 
-  constructor(broker: RpcConnection) {
+  constructor(broker: RpcConnectionManager) {
     this._broker = broker;
   }
 

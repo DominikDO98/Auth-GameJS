@@ -1,4 +1,7 @@
-import { IGithubUserDTO, IGithubUserDO } from "types/githubUser";
+import type {
+  IGithubUserDTO,
+  IGithubUserDO,
+} from "../../../types/githubUser.js";
 
 export class GithubUserDTO implements IGithubUserDTO {
   id: number;

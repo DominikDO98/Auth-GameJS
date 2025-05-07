@@ -1,5 +1,8 @@
-import { IGithubUserDO, IGithubUserDTO } from "types/githubUser";
-import { GithubUserDTO } from "./DTO";
+import type {
+  IGithubUserDO,
+  IGithubUserDTO,
+} from "../../../types/githubUser.js";
+import { GithubUserDTO } from "./DTO.js";
 
 export class GithubUserDTOMapper {
   private validate(data: IGithubUserDO) {
