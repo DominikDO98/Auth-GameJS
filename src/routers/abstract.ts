@@ -1,4 +1,4 @@
-import { Express, Router, Request, Response } from "express";
+import { Express, Router } from "express";
 
 export class CustomRouter {
   private _router;
@@ -12,11 +12,5 @@ export class CustomRouter {
   }
   get app() {
     return this._app;
-  }
-
-  initNotFound() {
-    this.app.all("*", (_req: Request, res: Response) => {
-      res.sendStatus(404);
-    });
   }
 }

@@ -1,5 +1,5 @@
-import { Express, Request, Response, Router } from "express";
-import { AuthController } from "contorllers/auth.controller";
+import { AuthController } from "controllers/auth.controller";
+import { Express, Request, Response } from "express";
 import { CustomRouter } from "./abstract";
 
 export class AuthRouter extends CustomRouter {

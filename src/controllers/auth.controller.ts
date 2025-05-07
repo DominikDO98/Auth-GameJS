@@ -2,7 +2,7 @@ import { HEADERS } from "constants/headers";
 import { AUTHORIZE_URL, FRONTEND_URL } from "constants/urls";
 import { Request, Response } from "express";
 import { v4 as uuid } from "uuid";
-import { AuthService } from "../service/auth.service";
+import { AuthService } from "../services/auth.service";
 
 export class AuthController {
   private _service = new AuthService();
@@ -19,7 +19,6 @@ export class AuthController {
   }
 
   async requestAccess(req: Request, res: Response): Promise<void> {
-    console.log(this._service);
     try {
       await this._service.requestAccess(req, res);
       res.clearCookie("State");
