@@ -1,12 +1,12 @@
-import { ScoreController } from "../controllers/score.controller";
 import type { Express, Request, Response } from "express";
-import { RpcConnection } from "../../lib/src/broker/connection";
-import { CustomRouter } from "./abstract";
+import type { RpcConnectionManager } from "../../lib/broker/connectionManager.js";
+import { ScoreController } from "../controllers/score.controller.js";
+import { CustomRouter } from "./abstract.js";
 
 export class ScoreRouter extends CustomRouter {
   private _controller: ScoreController;
 
-  constructor(app: Express, broker: RpcConnection) {
+  constructor(app: Express, broker: RpcConnectionManager) {
     super(app);
     this._controller = new ScoreController(broker);
   }

@@ -1,12 +1,12 @@
-import { Request, Response } from "express";
-import { ScoreService } from "services/score.service";
-import { RpcConnection } from "../../lib/src/broker/connection";
-import { logger } from "../../lib/src/logger/logger";
+import type { Request, Response } from "express";
+import { ScoreService } from "../services/score.service.js";
+import { logger } from "../../lib/logger/logger.js";
+import type { RpcConnectionManager } from "../../lib/broker/connectionManager.js";
 
 export class ScoreController {
   private _service: ScoreService;
 
-  constructor(broker: RpcConnection) {
+  constructor(broker: RpcConnectionManager) {
     this._service = new ScoreService(broker);
   }
   async sendScore(req: Request, res: Response) {

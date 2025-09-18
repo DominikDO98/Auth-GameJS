@@ -26,8 +26,8 @@
     "isolatedDeclarations": false,
     "isolatedModules": true,
     "lib": ["ES6", "ESNext"],
-    "module": "ESNext",
-    "moduleResolution": "Node",
+    "module": "node16",
+    "moduleResolution": "node16",
     "newLine": "lf",
     "noEmit": false,
     "noEmitHelpers": false,
@@ -63,7 +63,7 @@
     "types": ["node"],
     "useDefineForClassFields": true,
     "useUnknownInCatchVariables": true,
-    "verbatimModuleSyntax": false
+    "verbatimModuleSyntax": true
   },
   "exclude": ["node_modules, __tests__"],
   "include": ["src/**/*.ts", "lib/**/*.ts", "env.d.ts"]

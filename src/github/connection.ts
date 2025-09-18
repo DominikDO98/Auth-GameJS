@@ -1,9 +1,9 @@
-import { HEADERS } from "constants/headers";
-import { TOKEN_URL, USER_URL } from "constants/urls";
-import { GithubUserDOMapper } from "github/githubUser/DO/mapper";
-import { Request, Response } from "express";
-import { IError, IGrant, IMessage } from "types/authetication";
-import { IGithubUserDO } from "types/githubUser";
+import { HEADERS } from "../constants/headers.js";
+import { TOKEN_URL, USER_URL } from "../constants/urls.js";
+import { GithubUserDOMapper } from "../github/githubUser/DO/mapper.js";
+import type { Request, Response } from "express";
+import type { IError, IGrant, IMessage } from "types/authetication.js";
+import type { IGithubUserDO } from "../types/githubUser.js";
 
 export class GithubConnection {
   private _mapper = new GithubUserDOMapper();

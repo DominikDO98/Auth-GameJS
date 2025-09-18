@@ -1,5 +1,5 @@
-import { IGithubUser, IGithubUserDO } from "types/githubUser";
-import { GithubUserDO } from "./DO";
+import type { IGithubUser, IGithubUserDO } from "../../../types/githubUser.js";
+import { GithubUserDO } from "./DO.js";
 
 export class GithubUserDOMapper {
   private validate(data: Record<string, unknown>) {

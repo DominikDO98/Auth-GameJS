@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
-import { IGithubUserDTO } from "types/githubUser";
-import { GithubConnection } from "../github/connection";
-import { GithubUserDTOMapper } from "../github/githubUser/DTO/mapper";
+import type { Request, Response } from "express";
+import type { IGithubUserDTO } from "../types/githubUser.js";
+import { GithubConnection } from "../github/connection.js";
+import { GithubUserDTOMapper } from "../github/githubUser/DTO/mapper.js";
 
 export class AuthService {
   private _connection = new GithubConnection();

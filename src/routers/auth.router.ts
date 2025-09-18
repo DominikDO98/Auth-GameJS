@@ -1,6 +1,6 @@
-import { AuthController } from "controllers/auth.controller";
-import { Express, Request, Response } from "express";
-import { CustomRouter } from "./abstract";
+import { AuthController } from "../controllers/auth.controller.js";
+import type { Express, Request, Response } from "express";
+import { CustomRouter } from "./abstract.js";
 
 export class AuthRouter extends CustomRouter {
   private _controller = new AuthController();

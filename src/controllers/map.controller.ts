@@ -1,13 +1,13 @@
-import { MapService } from "../services/map.service";
 import type { Request, Response } from "express";
-import { logger } from "../../lib/src/logger/logger";
-import { RpcConnection } from "../../lib/src/broker/connection";
-import { IDifficultySettings } from "types/map";
+import type { RpcConnectionManager } from "../../lib/broker/connectionManager.js";
+import { logger } from "../../lib/logger/logger.js";
+import { MapService } from "../services/map.service.js";
+import type { IDifficultySettings } from "../types/map.js";
 
 export class MapController {
   private _service: MapService;
 
-  constructor(broker: RpcConnection) {
+  constructor(broker: RpcConnectionManager) {
     this._service = new MapService(broker);
   }
 
