@@ -9,7 +9,7 @@ export class GithubConnection {
   private _mapper = new GithubUserDOMapper();
 
   async requestUser(req: Request): Promise<IGithubUserDO | void> {
-    console.log("COOOKIES", req.cookies);
+    console.log("COOOKIES", req.headers.cookie);
 
     return fetch(USER_URL, {
       headers: { Authorization: req.cookies.Authorization },
