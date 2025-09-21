@@ -9,6 +9,8 @@ export class GithubConnection {
   private _mapper = new GithubUserDOMapper();
 
   async requestUser(req: Request): Promise<IGithubUserDO | void> {
+    console.log("COOOKIES", req.cookies);
+
     return fetch(USER_URL, {
       headers: { Authorization: req.cookies.Authorization },
     })
