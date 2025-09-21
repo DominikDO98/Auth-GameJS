@@ -54,7 +54,7 @@ export class AuthController {
   logOut(_req: Request, res: Response) {
     try {
       res.clearCookie("Authorization");
-      res.clearCookie("LoggedIn");
+      res.clearCookie("Loggedin");
       res.send();
     } catch (e) {
       console.error(e);

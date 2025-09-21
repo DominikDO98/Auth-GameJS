@@ -45,6 +45,7 @@ export class GithubConnection {
           httpOnly: true,
           secure: true,
           maxAge: 172800000,
+          sameSite: "none",
         });
       });
   }
