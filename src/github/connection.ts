@@ -13,9 +13,12 @@ export class GithubConnection {
       headers: { Authorization: req.cookies.Authorization },
     })
       .then((data) => {
+        console.log(data);
         return data.json();
       })
       .then((data) => {
+        console.log(data);
+
         if (!data || (data as IError).error || (data as IMessage).message)
           throw new Error("Authentication failed!");
         return this._mapper.mapUser(data as Record<string, unknown>);
@@ -36,7 +39,6 @@ export class GithubConnection {
         if (!data || (data as IError).error || (data as IMessage).message) {
           throw new Error("Authetication failed!");
         }
-        res.cookie("LoggedIn", true, { maxAge: 172800000 });
         res.cookie("Authorization", `Bearer ${(data as IGrant).access_token}`, {
           httpOnly: true,
           secure: true,
