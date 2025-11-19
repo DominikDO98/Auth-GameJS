@@ -44,6 +44,7 @@ export class GithubConnection {
         res.cookie("Authorization", `Bearer ${(data as IGrant).access_token}`, {
           httpOnly: true,
           secure: true,
+          domain: "awesomegamejs.web.app",
           maxAge: 172800000,
           sameSite: "none",
         });
