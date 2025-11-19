@@ -1,6 +1,6 @@
 import { HEADERS } from "../constants/headers.js";
 import { AUTHORIZE_URL, FRONTEND_URL } from "../constants/urls.js";
-import type { Request, Response } from "express";
+import type { CookieOptions, Request, Response } from "express";
 import { v4 as uuid } from "uuid";
 import { AuthService } from "../services/auth.service.js";
 
@@ -53,8 +53,14 @@ export class AuthController {
 
   logOut(_req: Request, res: Response) {
     try {
-      res.clearCookie("Authorization");
-      res.clearCookie("Loggedin");
+      const cookieOptions: CookieOptions = {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+        path: "/",
+      };
+      res.clearCookie("Authorization", cookieOptions);
+      res.clearCookie("Loggedin", cookieOptions);
       res.send();
     } catch (e) {
       console.error(e);
